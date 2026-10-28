@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大学生网络信息接触与判断研究 — 移动端 H5 学术调查平台</title>
+<meta name="description" content="一个基于 Supabase 的移动优先 H5 调查系统，供大学生完成关于黄金ETF信息接触与判断的实验任务。">
+<meta property="og:title" content="大学生网络信息接触与判断研究">
+<meta property="og:description" content="一个基于 Supabase 的移动优先 H5 调查系统，供大学生完成关于黄金ETF信息接触与判断的实验任务。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;560;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#08080b;--surface:#0f0f14;--border:#1e1e26;--text:#f4f4f6;--muted:#9a9aa8;--accent:#7c5cff;--accent2:#5b8cff;
+--wl-border:#1e1e26;--wl-field:#0f0f14;--wl-accent:#7c5cff;--wl-accent-text:#fff}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0}
+.glow::before,.glow::after{content:'';position:absolute;border-radius:50%;filter:blur(120px);opacity:.2}
+.glow::before{width:520px;height:520px;background:var(--accent);top:-200px;left:-120px}
+.glow::after{width:480px;height:480px;background:var(--accent2);top:140px;right:-180px;opacity:.13}
+header{position:relative;z-index:1;padding:104px 0 76px;text-align:center}
+.badge{display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-size:13px;color:var(--muted);margin-bottom:26px}
+h1{font-size:clamp(2.3rem,6vw,3.9rem);line-height:1.07;letter-spacing:-.035em;font-weight:700;margin-bottom:20px}
+.grad{background:linear-gradient(115deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--muted);max-width:600px;margin:0 auto 34px}
+.btn{display:inline-block;padding:13px 26px;border-radius:11px;font-weight:560;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 8px 26px -8px rgba(124,92,255,.7)}
+.cta-note{margin-top:12px;font-size:13px;color:var(--muted)}
+.stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;padding:32px;border:1px solid var(--border);border-radius:14px;background:var(--surface);margin-bottom:96px}
+.stat{text-align:center}
+.stat__v{display:block;font-size:clamp(1.4rem,3.2vw,2rem);font-weight:700}
+.stat__l{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+section{position:relative;z-index:1;padding-bottom:96px}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.feature{padding:28px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.feature h3{font-size:17px;margin-bottom:8px;letter-spacing:-.01em}
+.feature p{color:var(--muted);font-size:14.5px}
+.closing{text-align:center;padding:70px 30px;border:1px solid var(--border);border-radius:22px;background:radial-gradient(120% 140% at 50% 0%,rgba(124,92,255,.15),transparent 62%),var(--surface)}
+.closing h2{font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.03em;margin-bottom:12px}
+.closing p{color:var(--muted);max-width:520px;margin:0 auto}
+footer{border-top:1px solid var(--border);padding:34px 0;position:relative;z-index:1;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+.wl{padding:64px 24px;text-align:center}
+.wl__heading{font-size:clamp(1.4rem,3.4vw,2rem);margin:0 0 10px}
+.wl__blurb{margin:0 auto 22px;max-width:44ch;opacity:.75}
+.wl__form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:460px;margin:0 auto}
+.wl__input{flex:1;min-width:220px;padding:13px 16px;font:inherit;font-size:15px;border-radius:10px;border:1px solid var(--wl-border);background:var(--wl-field);color:inherit}
+.wl__input:focus{outline:2px solid var(--wl-accent);outline-offset:1px}
+.wl__button{padding:13px 24px;font:inherit;font-size:15px;font-weight:600;border:0;border-radius:10px;background:var(--wl-accent);color:var(--wl-accent-text);cursor:pointer}
+.wl__button:disabled{opacity:.6;cursor:default}
+.wl__status{min-height:1.4em;margin:14px 0 0;font-size:14px}
+.wl__status.is-error{color:#dc2626}
+.wl__status.is-success{color:#16a34a;font-weight:600}
+
+@media(max-width:640px){header{padding:70px 0 54px}.stats{margin-bottom:70px}section{padding-bottom:70px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<header><div class="wrap">
+  <span class="badge">移动端 H5 学术调查平台</span>
+  <h1>大学生网络信息接触与判断研究<br><span class="grad">移动端 H5 学术调查平台</span></h1>
+  <p class="sub">一个基于 Supabase 的移动优先 H5 调查系统，供大学生完成关于黄金ETF信息接触与判断的实验任务。</p>
+  
+</div></header>
+
+<section><div class="wrap"><div class="features"><article class="feature"><h3>核心功能</h3><p>登录页、筛选页、情境展示、完整问卷、提交页，全程中文，保持参与者盲目信息。</p></article><article class="feature"><h3>实验设计实现</h3><p>随机分配 3×2 组，隐藏 group_id、source_type、exposure_type 于后端，仅用于数据存储。</p></article><article class="feature"><h3>数据安全</h3><p>使用 Supabase 行级安全，仅允许匿名 INSERT，所有个人可识别信息均不收集。</p></article><article class="feature"><h3>技术栈</h3><p>HTML5、CSS3（mobile‑first）、JavaScript（Vue/React 可选），Supabase JS SDK 与 PostgreSQL。</p></article></div></div></section>
+<section><div class="wrap"><section class="closing"><h2>确保盲目与数据完整</h2><p>平台严格遵循实验盲盲要求并安全存储所有响应。</p></section></div></section>
+
+<footer><div class="wrap" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px"><span>移动端 H5 调查</span><span>&copy; 2026 大学生网络信息接触与判断研究</span></div></footer>
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script></body></html>
